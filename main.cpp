@@ -1,23 +1,23 @@
-// #include <boost/lambda/lambda.hpp>
-// #include <iostream>
-// #include <iterator>
-// #include <algorithm>
+/*
 
-// // Windows 版本
-// // c++ -I../../Desktop/boost_1_54_0 .\main.cpp
+// Windows 版本
+// c++ -I../../Desktop/boost_1_54_0 .\main.cpp
 
-// int main(){
-// 	using namespace boost::lambda;
-// 	typedef std::istream_iterator<int> in;
-
-// 	std::for_each(
-// 		in(std::cin), in(), std::cout << (_1 * 3) << " "
-// 	);
-// }
-
-#include <boost/regex.hpp>
+#include <boost/lambda/lambda.hpp>
 #include <iostream>
-#include <string>
+#include <iterator>
+#include <algorithm>
+
+int main(){
+	using namespace boost::lambda;
+	typedef std::istream_iterator<int> in;
+
+	std::for_each(
+		in(std::cin), in(), std::cout << (_1 * 3) << " "
+	);
+}
+
+*/
 
 // Windows 版本
 // c++ -I ../../Desktop/boost_1_54_0 .\main.cpp
@@ -26,15 +26,19 @@
 // 首先要先用：C:\Users\scott\Desktop\boost_1_54_0>b2 toolset=gcc --prefix=c:\boost_lib_install_path install，將 boost 的static Lib 編譯安裝好
 // c++ .\main.cpp -I/boost_build/include/boost-1_54 -L/boost_build/lib_gcc -lboost_regex-mgw47-mt-1_54 ; .\a.exe
 
+#include <boost/regex.hpp>
+#include <iostream>
+#include <string>
+
 int main(){
 	std::string line;
-	boost::regex pat( "^Subject: (Re: |Aw: )*(.*)" );
+	boost::regex pat( "^Title is begin(.*?)end" );
 
 	while (std::cin)
 	{
-		std::getline(std::cin, line);
+		std::getline(std::cin, line);					// 可以輸入 " Title is begin312321321321end. "
 		boost::smatch matches;
 		if (boost::regex_match(line, matches, pat))
-			std::cout << matches[2] << std::endl;
+			std::cout << matches[1] << std::endl;		// [0] 全文, [1] 第一個匹配, [2]第二個匹配
 	}
 }
