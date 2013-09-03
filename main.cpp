@@ -54,7 +54,7 @@ int main(){
 	// 找到一群字串(類似 re.findall )
 	std::string text("abc abd abc eeee trtrabewqewq rrabyyyy");
 
-	boost::regex regex("ab.");							// 匹配表示( 找到ab+任意一個字母或數字 )
+	boost::regex regex("(ab.*?) ");							// 匹配表示( 找到ab+任意一個字母或數字 ), 用法跟 Python 類似
 
 	boost::sregex_token_iterator iter(text.begin(), text.end(), regex, 0);
 	boost::sregex_token_iterator end;
@@ -62,5 +62,5 @@ int main(){
 	for( ; iter != end; ++iter ) {
 		std::cout<<*iter<<'\n';
 	}
-	
+
 }
