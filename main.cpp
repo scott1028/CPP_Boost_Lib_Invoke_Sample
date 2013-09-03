@@ -30,15 +30,37 @@ int main(){
 #include <iostream>
 #include <string>
 
-int main(){
-	std::string line;
-	boost::regex pat( "^Title is begin(.*?)end" );
+using namespace std;
 
-	while (std::cin)
-	{
-		std::getline(std::cin, line);					// 可以輸入 " Title is begin312321321321end. "
+int main(){
+	
+	/*
+	// 找到字串就返回
+
+	std::string line;
+	boost::regex pat( "b(.*?)ex(.*?)y" );					// 也可以輸入表示整個字串的開頭 "^b"
+
+	while (std::cin){
+		std::getline(std::cin, line);						// 可以輸入 "b312321321321e"
 		boost::smatch matches;
-		if (boost::regex_match(line, matches, pat))
-			std::cout << matches[1] << std::endl;		// [0] 全文, [1] 第一個匹配, [2]第二個匹配
+		if (boost::regex_match(line, matches, pat)){
+			std::cout << matches[1] << std::endl;			// [0] 全文, [1] 第一個匹配, [2]第二個匹配( 代表有第二個(.*?) )
+			std::cout << matches[2] << std::endl;
+			std::cout << matches.size() << std::endl;		// 這個 RegExp 的匹配總長( 等於3 )
+		}
 	}
+	*/
+
+	// 找到一群字串(類似 re.findall )
+	std::string text("abc abd abc eeee trtrabewqewq rrabyyyy");
+
+	boost::regex regex("ab.");							// 匹配表示( 找到ab+任意一個字母或數字 )
+
+	boost::sregex_token_iterator iter(text.begin(), text.end(), regex, 0);
+	boost::sregex_token_iterator end;
+
+	for( ; iter != end; ++iter ) {
+		std::cout<<*iter<<'\n';
+	}
+	
 }
